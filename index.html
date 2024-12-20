@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+</head>
+<body>
+    <div class="box">
+        <div class="types">
+            <button id="start-timer" onclick="startTimer(25 * 60, true)">Start Timer</button>
+            <button id="short-break" onclick="startTimer(5 * 60, false)">Short Break</button>
+            <button id="long-break" onclick="startTimer(15 * 60, false)">Long Break</button>
+            <button id="pause-timer" onclick="pauseTimer()">Pause Timer</button>
+        </div>
+        <div class="timer">
+            <p id="time-left">25:00</p>
+        </div>
+        <div class="task">
+            <input type="text" id="task-input" placeholder="Your task (One at a time!)">
+            <button id="add-task" onclick="addTask()">Add Task</button>
+            <button id="completed" onclick="markCompleted()">Mark Completed</button>
+            <p id="current-task"></p>
+        </div>
+    </div>
+<script>
+    let timerInterval;
+    let remainingTime;
+    const audio = new Audio("./rainsound.mp3");
+
+    function startTimer(duration, playAudio) {
+        clearInterval(timerInterval);
+        remainingTime = duration;
+        stopAudio();
+        updateTimerDisplay(remainingTime);
+
+        if (playAudio) playAudioLoop();
+
+        timerInterval = setInterval(() => {
+            remainingTime--;
+            updateTimerDisplay(remainingTime);
+
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                stopAudio();
+                alert("Time's up!");
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        document.getElementById("time-left").textContent =
+            `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        stopAudio();
+    }
+
+    function addTask() {
+        const taskInput = document.getElementById("task-input");
+        const currentTask = document.getElementById("current-task");
+
+        if (taskInput.value.trim() !== "") {
+            currentTask.textContent = `Current Task: ${taskInput.value}`;
+        } else {
+            alert("Please enter a task.");
+        }
+    }
+
+    function markCompleted() {
+        const currentTask = document.getElementById("current-task");
+
+        if (currentTask.textContent !== "") {
+            alert(`Task "${currentTask.textContent.replace('Current Task: ', '')}" completed!`);
+            currentTask.textContent = "";
+        } else {
+            alert("No task to mark as completed.");
+        }
+    }
+
+    function playAudioLoop() {
+        audio.loop = true;
+        audio.play();
+    }
+
+    function stopAudio() {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+</script>
+<style>
+    body {
+        background-color: black;
+        color: bisque;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Times New Roman', Times, serif;
+        background-image: url("./darkrain1.gif");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .box {
+        width: 500px;
+        height: auto;
+        margin-top: 174px;
+        padding: 20px;
+    }
+    #time-left {
+        font-size: 4rem;
+        margin-left: 170px;
+    }
+    button {
+        margin-left: 25px;
+        background-color: black;
+        border-radius: 10px;
+        padding: 10px;
+        color: whitesmoke;
+        border: none;
+    }
+    button:hover {
+        background-color: bisque;
+        cursor: pointer;
+        color: black;
+    }
+    input {
+        border: none;
+        padding: 10px;
+        background-color: rgb(34, 28, 28);
+        color: white !important;
+        cursor: pointer;
+    }
+   
+</style>
+
+</body>
+</html>
