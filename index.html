@@ -4,6 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
+    <style>
+        body {
+            background-color: black;
+            color: bisque;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Times New Roman', Times, serif;
+            background-image: url("./darkrain1.gif");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            height: 100vh;
+        }
+        .box {
+            width: 90%;
+            max-width: 500px;
+            height: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #time-left {
+            font-size: 4rem;
+        }
+        button {
+            margin: 10px;
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            color: whitesmoke;
+            border: none;
+            width: 100%;
+            max-width: 200px;
+        }
+        button:hover {
+            background-color: bisque;
+            cursor: pointer;
+            color: black;
+        }
+        input {
+            border: none;
+            padding: 10px;
+            background-color: rgb(34, 28, 28);
+            color: white !important;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .task {
+            margin-top: 20px;
+        }
+        .types {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
     <div class="box">
@@ -17,7 +76,7 @@
             <p id="time-left">25:00</p>
         </div>
         <div class="task">
-            <input type="text" id="task-input" placeholder="Your task (One at a time!)">
+            <input type="text" id="task-input" placeholder="Enter your task">
             <button id="add-task" onclick="addTask()">Add Task</button>
             <button id="completed" onclick="markCompleted()">Mark Completed</button>
             <p id="current-task"></p>
@@ -92,50 +151,5 @@
         audio.currentTime = 0;
     }
 </script>
-<style>
-    body {
-        background-color: black;
-        color: bisque;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Times New Roman', Times, serif;
-        background-image: url("./darkrain1.gif");
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .box {
-        width: 500px;
-        height: auto;
-        margin-top: 174px;
-        padding: 20px;
-    }
-    #time-left {
-        font-size: 4rem;
-        margin-left: 170px;
-    }
-    button {
-        margin-left: 25px;
-        background-color: black;
-        border-radius: 10px;
-        padding: 10px;
-        color: whitesmoke;
-        border: none;
-    }
-    button:hover {
-        background-color: bisque;
-        cursor: pointer;
-        color: black;
-    }
-    input {
-        border: none;
-        padding: 10px;
-        background-color: rgb(34, 28, 28);
-        color: white !important;
-        cursor: pointer;
-    }
-   
-</style>
-
 </body>
 </html>
